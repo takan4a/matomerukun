@@ -50,3 +50,9 @@
   font-size: 0.8rem;
   color: #aaa;
 }
+
+/* ページ遷移用に追加 by hirai daiki */
+.card-link {
+  text-decoration: none; /* 下線を削除 */
+  color: inherit; /* 親要素の色を継承 */
+}
