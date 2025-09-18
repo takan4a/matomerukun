@@ -1,33 +1,23 @@
 // src/App.tsx
 import './App.css';
-import appleImage from './assets/fruit_apple.png'; // あなたがアップロードした画像のパスに修正してください
+import moc1 from './assets/moc1.png'; // あなたがアップロードした画像のパスに修正してください
+import moc2 from './assets/moc2.png'; 
 
 // サンプルデータ
 const posts = [
   {
-    image: appleImage,
-    title: '【創作漫画】しっぽと恋心 21話',
-    author: '近場うみ',
+    image: moc1,
+    title: '運と脚力と私。',
+    author: '原田 透子',
     date: '8日前',
   },
   {
-    image: appleImage,
-    title: '【コミックエッセイ】敬老の日に不謹慎かもしれませんがイラスト',
-    author: 'あんこさん',
+    image: moc2,
+    title: 'ローテーション',
+    author: '晴れやか',
     date: '3日前',
   },
-  {
-    image: appleImage,
-    title: '【世界陸上】1秒後、世界が変わった瞬間の目撃者になった',
-    author: '三輪清朗(みわこうさく)',
-    date: '18時間前',
-  },
-  {
-    image: appleImage,
-    title: '『フルリモート』でも信頼されるエンジニアとしてやっていること',
-    author: 'ひろ@個人アプリ開発者',
-    date: '20時間前',
-  },
+
 ];
 
 function App() {
