@@ -1,7 +1,6 @@
 // src/App.tsx
 import './App.css';
-import { useState } from 'react';
-import appleImage from './assets/apple.jpg'; // あなたがアップロードした画像のパスに修正してください
+import appleImage from './assets/fruit_apple.png'; // あなたがアップロードした画像のパスに修正してください
 
 // サンプルデータ
 const posts = [
