@@ -16,10 +16,10 @@ const posts = [
   },
   {
     image: moc2,
-    title: 'ローテーション',
-    author: '晴れやか',
+    title: '今週のようす。',
+    author: '菅平高原実験所｜Sugadaira Research Station',
     date: '3日前',
-    url: 'https://x.com/kani__no__/status/1963935149827256553',
+    url: 'https://x.com/srs_kyoten/status/1953693747541127173',
   },
   {
     image: moc3,
@@ -38,32 +38,13 @@ const posts = [
 
 ];
 
-// function App() {
-//   return (
-//     <div className="container">
-//       <h1>まとめるくん</h1>
-//       <div className="grid-container">
-//         {posts.map((post, index) => (
-//           <div key={index} className="card">
-//             <img src={post.image} alt={post.title} className="card-image" />
-//             <div className="card-content">
-//               <h3>{post.title}</h3>
-//               <div className="card-meta">
-//                 <span>{post.author}</span>
-//                 <span>{post.date}</span>
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
 
 function App() {
   return (
     <div className="container">
       <h1>まとめるくん</h1>
+      <p>素材や​資料を​収集し、​活用できる形で​整理したい映​像​・画​像​制作者向けの、まとめるくんというプロダクトはツイート画像・映像素材の​管理アプリです。</p>
+      <p>これは、一目で​見て、​素材や​資料の​判別ができ、Notionなどの​多機能な​メモアプリとは違って、操作を​学ばずとも​直観的に​理解できる​UIが備わっています。</p>
       <div className="grid-container">
         {posts.map((post, index) => (
           // カード全体をaタグで囲む

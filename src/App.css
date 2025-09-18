@@ -21,6 +21,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
   cursor: pointer;
+  /* 文字色が未設定なので、デフォルトでは親要素の白が適用される */
+  color: #fff; 
 }
 
 .card:hover {
@@ -56,3 +58,17 @@
   text-decoration: none; /* 下線を削除 */
   color: inherit; /* 親要素の色を継承 */
 }
+
+/* ライトモード用のスタイルを追加 */
+@media (prefers-color-scheme: light) {
+  .card {
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    color: #213547;
+  }
+
+  .card-meta {
+    color: #666;
+  }
+}
+ 
