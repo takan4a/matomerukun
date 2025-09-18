@@ -5,6 +5,8 @@ import moc2 from './assets/moc2.png';
 import moc3 from './assets/moc3.png'; 
 import moc4 from './assets/moc4.png'; 
 
+import BookmarkPage from "./components/BookmarkPage";
+
 // サンプルデータ
 const posts = [
   {
@@ -42,6 +44,9 @@ const posts = [
 function App() {
   return (
     <div className="container">
+
+<BookmarkPage />
+
       <h1>まとめるくん</h1>
       <p>素材や​資料を​収集し、​活用できる形で​整理したい映​像​・画​像​制作者向けの、まとめるくんというプロダクトはツイート画像・映像素材の​管理アプリです。</p>
       <p>これは、一目で​見て、​素材や​資料の​判別ができ、Notionなどの​多機能な​メモアプリとは違って、操作を​学ばずとも​直観的に​理解できる​UIが備わっています。</p>
