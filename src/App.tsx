@@ -1,18 +1,54 @@
 // src/App.tsx
 import './App.css';
-import apple_irasutoya from '/fruit_apple.png';
+import { useState } from 'react';
+import appleImage from './assets/apple.jpg'; // あなたがアップロードした画像のパスに修正してください
+
+// サンプルデータ
+const posts = [
+  {
+    image: appleImage,
+    title: '【創作漫画】しっぽと恋心 21話',
+    author: '近場うみ',
+    date: '8日前',
+  },
+  {
+    image: appleImage,
+    title: '【コミックエッセイ】敬老の日に不謹慎かもしれませんがイラスト',
+    author: 'あんこさん',
+    date: '3日前',
+  },
+  {
+    image: appleImage,
+    title: '【世界陸上】1秒後、世界が変わった瞬間の目撃者になった',
+    author: '三輪清朗(みわこうさく)',
+    date: '18時間前',
+  },
+  {
+    image: appleImage,
+    title: '『フルリモート』でも信頼されるエンジニアとしてやっていること',
+    author: 'ひろ@個人アプリ開発者',
+    date: '20時間前',
+  },
+];
 
 function App() {
   return (
-    <div className="App">
-      <div>
-        <a href="https://www.irasutoya.com/2012/11/blog-post.html" target="_blank" rel="noopener noreferrer">
-          <img src={apple_irasutoya} className="logo" alt="Apple irasutoya" />
-        </a>
-      </div>
+    <div className="container">
       <h1>まとめるくん</h1>
-      <h2>「まとめるくん」は、参考資料として素材や資料を収集して活用できる形で整理したいクリエイター向けの、サイトなどをまとめる管理アプリです。 このプロダクトを用いることで、クリエイターは一目で素材や資料を一覧することができるようになります。また、Notionなどの多機能なメモアプリとは異なり、操作が分かりやすいUIが備わっています。</h2>
-      <p>これは、シンプルな画像とテキストを表示するデモページです。</p>
+      <div className="grid-container">
+        {posts.map((post, index) => (
+          <div key={index} className="card">
+            <img src={post.image} alt={post.title} className="card-image" />
+            <div className="card-content">
+              <h3>{post.title}</h3>
+              <div className="card-meta">
+                <span>{post.author}</span>
+                <span>{post.date}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
