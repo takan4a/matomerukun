@@ -1,13 +1,11 @@
+// api/posts.ts
 import { db } from '@vercel/postgres';
 import express from 'express';
 import type { Request, Response } from 'express';
 
-// Expressアプリを初期化
 const app = express();
-// JSONリクエストボディを自動でパースするミドルウェアを追加
 app.use(express.json());
 
-// POSTリクエストを処理するエンドポイント
 app.post('/api/posts', async (req: Request, res: Response) => {
   const client = await db.connect();
   try {
@@ -39,7 +37,6 @@ app.post('/api/posts', async (req: Request, res: Response) => {
   }
 });
 
-// GETリクエストを処理するエンドポイント
 app.get('/api/posts', async (req: Request, res: Response) => {
   const client = await db.connect();
   try {
@@ -53,7 +50,6 @@ app.get('/api/posts', async (req: Request, res: Response) => {
   }
 });
 
-// Vercelがエクスポートするハンドラ関数
 export default function handler(req: Request, res: Response) {
   return app(req, res);
 }
