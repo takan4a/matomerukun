@@ -5,6 +5,7 @@ import moc1 from './assets/moc1.png';
 import moc2 from './assets/moc2.png';
 import moc3 from './assets/moc3.png';
 import moc4 from './assets/moc4.png';
+import logo from './assets/logo_matomeru.png';
 
 // 静的なモックデータ
 const staticPosts = [
@@ -59,7 +60,7 @@ function App() {
     if (newUrl.trim() === '') return;
   
     const newPost = {
-      image: 'https://via.placeholder.com/280',
+      image: logo,
       title: newUrl,
       author: 'Unknown',
       date: new Date().toLocaleDateString(),
