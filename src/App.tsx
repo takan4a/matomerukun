@@ -1,4 +1,3 @@
-// src/App.tsx
 import { useState, useEffect } from 'react';
 import './App.css';
 import moc1 from './assets/moc1.png';
@@ -6,7 +5,14 @@ import moc2 from './assets/moc2.png';
 import moc3 from './assets/moc3.png';
 import moc4 from './assets/moc4.png';
 
-// 静的なモックデータ
+interface Post {
+  id: number;
+  url: string;
+  title: string | null;
+  author: string | null;
+  date: string;
+}
+
 const staticPosts = [
   {
     image: moc1,
@@ -39,42 +45,38 @@ const staticPosts = [
 ];
 
 function App() {
-  const [dynamicPosts, setDynamicPosts] = useState(() => {
-    const storedPosts = localStorage.getItem('matomerukun_posts');
-    try {
-      return storedPosts ? JSON.parse(storedPosts) : [];
-    } catch (e) {
-      console.error('Failed to parse posts from localStorage', e);
-      return [];
-    }
-  });
-  const [newUrl, setNewUrl] = useState('');
+  const [dynamicPosts, setDynamicPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    localStorage.setItem('matomerukun_posts', JSON.stringify(dynamicPosts));
-  }, [dynamicPosts]);
+    // 自分のVercelプロジェクトのURLに置き換えてください
+    const apiEndpoint = 'https://https://matomerukun.vercel.app/api/posts';
 
-  const handleAddPost = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newUrl.trim() === '') return;
-  
-    const newPost = {
-      image: 'https://via.placeholder.com/280',
-      title: newUrl,
-      author: 'Unknown',
-      date: new Date().toLocaleDateString(),
-      url: newUrl,
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(apiEndpoint);
+        if (response.ok) {
+          const data = await response.json();
+          setDynamicPosts(data);
+        } else {
+          console.error('Failed to fetch posts:', response.status);
+        }
+      } catch (error) {
+        console.error('Network error while fetching posts:', error);
+      }
     };
-  
-    setDynamicPosts([newPost, ...dynamicPosts]);
-    setNewUrl('');
-  };
-  
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewUrl(e.target.value);
-  };
 
-  const allPosts = [...dynamicPosts, ...staticPosts];
+    fetchPosts();
+  }, []);
+
+  // ローカルストレージを削除し、Placeholderを使用
+  const allPosts = [
+    ...dynamicPosts.map(post => ({
+      ...post,
+      image: 'https://via.placeholder.com/280', // TODO: 画像取得ロジックを追加
+      date: new Date(post.date).toLocaleDateString('ja-JP'),
+    })),
+    ...staticPosts
+  ];
 
   return (
     <div className="container">
@@ -82,21 +84,20 @@ function App() {
       <p>素材や​資料を​収集し、​活用できる形で​整理したい映​像​・画​像​制作者向けの、まとめるくんというプロダクトはツイート画像・映像素材の​管理アプリです。</p>
       <p>これは、一目で​見て、​素材や​資料の​判別ができ、Notionなどの​多機能な​メモアプリとは違って、操作を​学ばずとも​直観的に​理解できる​UIが備わっています。</p>
 
-      <form onSubmit={handleAddPost} className="input-form">
+      <div className="input-form">
         <input
-          type="text"
-          placeholder="ここにURLを入力"
-          value={newUrl}
-          onChange={handleInputChange}
+          type="url"
+          id="urlInput"
+          placeholder="ここにURLを貼り付けてください"
         />
-        <button type="submit">保存</button>
-      </form>
+        <button id="saveButton">保存</button>
+      </div>
 
       <div className="grid-container">
         {allPosts.map((post, index) => (
           <a href={post.url} target="_blank" rel="noopener noreferrer" key={index} className="card-link">
             <div className="card">
-              <img src={post.image} alt={post.title} className="card-image" />
+              <img src={post.image || 'https://via.placeholder.com/280'} alt={post.title || 'No Title'} className="card-image" />
               <div className="card-content">
                 <h3>{post.title}</h3>
                 <div className="card-meta">
