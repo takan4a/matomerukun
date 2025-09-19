@@ -1,12 +1,9 @@
 chrome.action.onClicked.addListener((tab) => {
-  if (!tab.url || !tab.title) return;
-
-  const newBookmark = { title: tab.title, url: tab.url };
-
-  chrome.storage.local.get(["bookmarks"], (result) => {
-    const updated = [...(result.bookmarks || []), newBookmark];
-    chrome.storage.local.set({ bookmarks: updated }, () => {
-      console.log("保存しました:", newBookmark);
+  if (tab.url) {
+    // 保存
+    chrome.storage.local.get({ posts: [] }, (data) => {
+      const newPosts = [...data.posts, { url: tab.url }];
+      chrome.storage.local.set({ posts: newPosts });
     });
-  });
+  }
 });

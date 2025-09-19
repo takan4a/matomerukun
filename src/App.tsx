@@ -7,8 +7,24 @@ import moc4 from './assets/moc4.png';
 
 import BookmarkPage from "./components/BookmarkPage";
 
-// サンプルデータ
-const posts = [
+import React, { useState, useEffect } from "react";
+
+
+
+type Post = {
+  image?: string;
+  title: string;
+  author: string;
+  date: string;
+  url: string;
+};
+
+
+
+
+export default function App() {
+
+const [posts, setPosts] = useState<Post[]>([
   {
     image: moc1,
     title: '運と脚力と私。',
@@ -37,11 +53,31 @@ const posts = [
     date: '1日前',
     url: 'https://youtu.be/rHsY5wQApCw?si=N1pxH-wl7IHIVqQ2',
   },
+]);
+useEffect(() => {
+    chrome.storage.local.get({ posts: [] }, (data) => {
+      const newPosts = data.posts.map((p: { url: string }) => ({
+        title: "ブックマークされたページ",
+        author: "拡張機能",
+        date: "今日",
+        url: p.url,
+      }));
+      setPosts((prev) => [...prev, ...newPosts]);
+    });
 
-];
-
-
-function App() {
+    // ストレージ更新を監視
+    chrome.storage.onChanged.addListener((changes) => {
+      if (changes.posts) {
+        const newPosts = changes.posts.newValue.map((p: { url: string }) => ({
+          title: "ブックマークされたページ",
+          author: "拡張機能",
+          date: "今日",
+          url: p.url,
+        }));
+        setPosts((prev) => [...prev, ...newPosts]);
+      }
+    });
+  }, []);
   return (
     <div className="container">
 
@@ -51,25 +87,15 @@ function App() {
       <p>素材や​資料を​収集し、​活用できる形で​整理したい映​像​・画​像​制作者向けの、まとめるくんというプロダクトはツイート画像・映像素材の​管理アプリです。</p>
       <p>これは、一目で​見て、​素材や​資料の​判別ができ、Notionなどの​多機能な​メモアプリとは違って、操作を​学ばずとも​直観的に​理解できる​UIが備わっています。</p>
       <div className="grid-container">
-        {posts.map((post, index) => (
-          // カード全体をaタグで囲む
-          <a href={post.url} target="_blank" rel="noopener noreferrer" key={index} className="card-link">
-            <div className="card">
-              <img src={post.image} alt={post.title} className="card-image" />
-              <div className="card-content">
-                <h3>{post.title}</h3>
-                <div className="card-meta">
-                  <span>{post.author}</span>
-                  <span>{post.date}</span>
-                </div>
-              </div>
-            </div>
-          </a>
-        ))}
+        {posts.map((post, idx) => (
+        <div key={idx} className="card">
+          {post.image && <img src={post.image} alt={post.title} />}
+          <h3>{post.title}</h3>
+          <p>{post.author}・{post.date}</p>
+          <a href={post.url} target="_blank">{post.url}</a>
+        </div>
+      ))}
       </div>
     </div>
   );
 }
-
-
-export default App;
